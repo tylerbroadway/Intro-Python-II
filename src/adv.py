@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -48,3 +49,45 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+starting_room = room["outside"]
+player = Player("Tyler", starting_room)
+
+while True:
+  current_room = player.current_room
+  
+  print(f"Current Room: {current_room.name}\n")
+  print(f"Room Description: {current_room.description}\n")
+  print(f"Which direction would you like to move?\n")
+
+  cmd = input("Press 'n', 'e', 's', or 'w' to move. Press 'q' to quit.\n")
+
+  if cmd == 'q':
+    print("Thank you for playing.\n")
+    break
+  elif cmd == 'n':
+    if hasattr(current_room, "n_to"):
+      print("Heading north...\n")
+      player.current_room = current_room.n_to
+    else:
+      print("Cannot head north. Try another direction.\n")
+  elif cmd == 'e':
+    if hasattr(current_room, "e_to"):
+      print("Heading east...\n")
+      player.current_room = current_room.e_to
+    else:
+      print("Cannot head east. Try another direction.\n")
+  elif cmd == 's':
+    if hasattr(current_room, "s_to"):
+      print("Heading south...\n")
+      player.current_room = current_room.s_to
+    else:
+      print("Cannot head south. Try another direction.\n")
+  elif cmd == 'w':
+    if hasattr(current_room, "w_to"):
+      print("Heading west...\n")
+      player.current_room = current_room.w_to
+    else:
+      print("Cannot head west. Try another direction.\n")
+  else:
+    print("Invalid command. Use 'n', 'e', 's', and 'w' to move, or press 'q' to quit.\n")
