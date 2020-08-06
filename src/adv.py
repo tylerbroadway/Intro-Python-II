@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+from item import Item
 
 # Declare all the rooms
 
@@ -63,31 +64,31 @@ while True:
   cmd = input("Press 'n', 'e', 's', or 'w' to move. Press 'q' to quit.\n")
 
   if cmd == 'q':
-    print("Thank you for playing.\n")
+    print("\nThank you for playing.\n")
     break
   elif cmd == 'n':
     if hasattr(current_room, "n_to"):
-      print("Heading north...\n")
+      print("\nHeading north...\n")
       player.current_room = current_room.n_to
     else:
-      print("Cannot head north. Try another direction.\n")
+      print("\nCannot head north. Try another direction.\n")
   elif cmd == 'e':
     if hasattr(current_room, "e_to"):
-      print("Heading east...\n")
+      print("\nHeading east...\n")
       player.current_room = current_room.e_to
     else:
-      print("Cannot head east. Try another direction.\n")
+      print("\nCannot head east. Try another direction.\n")
   elif cmd == 's':
     if hasattr(current_room, "s_to"):
-      print("Heading south...\n")
+      print("\nHeading south...\n")
       player.current_room = current_room.s_to
     else:
-      print("Cannot head south. Try another direction.\n")
+      print("\nCannot head south. Try another direction.\n")
   elif cmd == 'w':
     if hasattr(current_room, "w_to"):
-      print("Heading west...\n")
+      print("\nHeading west...\n")
       player.current_room = current_room.w_to
     else:
-      print("Cannot head west. Try another direction.\n")
+      print("\nCannot head west. Try another direction.\n")
   else:
-    print("Invalid command. Use 'n', 'e', 's', and 'w' to move, or press 'q' to quit.\n")
+    print("\nInvalid command. Use 'n', 'e', 's', and 'w' to move, or press 'q' to quit.\n")
