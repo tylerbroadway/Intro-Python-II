@@ -6,21 +6,21 @@ from item import Item
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+                     "North of you, the cave mount beckons", Item("old map", "old, washed up map")),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+passages run north and east.""", Item("pocket watch", "holds a picture of some man.")),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm."""),
+the distance, but there is no way across the chasm.""", Item("parasail", "for jumping from the overlook.")),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air."""),
+to north. The smell of gold permeates the air.""", Item("flashlight", "does it even work?")),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south."""),
+earlier adventurers. The only exit is to the south.""", Item("golden sword", "old, but still shiny.")),
 }
 
 # Link rooms together
@@ -56,12 +56,28 @@ player = Player("Tyler", starting_room)
 
 while True:
   current_room = player.current_room
+  player_inventory = [x for x in player.inventory] if len(player.inventory) else   "No Inventory"
+  room_inventory = [x for x in current_room.items] if len(current_room.items) else "Empty Room"
+
+  verb, obj = "", ""
   
-  print(f"Current Room: {current_room.name}\n")
-  print(f"Room Description: {current_room.description}\n")
+  print(f"Current Room: {current_room}\n")
   print(f"Which direction would you like to move?\n")
 
-  cmd = input("Press 'n', 'e', 's', or 'w' to move. Press 'q' to quit.\n")
+  cmd = input("Press 'n', 'e', 's', or 'w' to move. Press 'q' to quit. You can also pick up or drop items, by saying 'Take item' or 'Drop item'.\n")
+
+  if "take" in cmd:
+    verb = cmd.split(" ")
+    if len(verb) == 2:
+      obj = verb[1]
+    if len(verb) == 3:
+      obj = verb[1] + ' ' + verb[2]
+      for item in current_room.items:
+        if item.name == obj:
+          player.take_item(item)
+          current_room.remove_item(item.name)
+        else:
+          continue
 
   if cmd == 'q':
     print("\nThank you for playing.\n")

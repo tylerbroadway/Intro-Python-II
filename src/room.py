@@ -7,7 +7,7 @@ class Room:
     self.items = [items]
   
   def __str__(self):
-    return f"""\nName: {self.name}\nDescription: {self.description}\nItems: {self.items}\n"""
+    return f"""\nName: {self.name}\nDescription: {self.description}\nItems: {[x.name for x in self.items]}\n"""
 
   def remove_item(self, item):
     del self.items[item]
