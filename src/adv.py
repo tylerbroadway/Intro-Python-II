@@ -62,6 +62,7 @@ while True:
   verb, obj = "", ""
   
   print(f"Current Room: {current_room}\n")
+  print(f"Inventory: {player.inventory}\n")
   print(f"Which direction would you like to move?\n")
 
   cmd = input("Press 'n', 'e', 's', or 'w' to move. Press 'q' to quit. You can also pick up or drop items, by saying 'Take item' or 'Drop item'.\n")
@@ -70,12 +71,33 @@ while True:
     verb = cmd.split(" ")
     if len(verb) == 2:
       obj = verb[1]
+      for item in current_room.items:
+        if item.name == obj:
+          player.take_item(item)
+          # current_room.remove_item(item.name)
     if len(verb) == 3:
       obj = verb[1] + ' ' + verb[2]
       for item in current_room.items:
         if item.name == obj:
           player.take_item(item)
-          current_room.remove_item(item.name)
+          # current_room.remove_item(item.name)
+        else:
+          continue
+  
+  if "drop" in cmd:
+    verb = cmd.split(" ")
+    if len(verb) == 2:
+      obj = verb[1]
+      for item in current_room.items:
+        if item.name == obj:
+          player.drop_item(item)
+          # current_room.add_item(item.name)
+    if len(verb) == 3:
+      obj = verb[1] + ' ' + verb[2]
+      for item in current_room.items:
+        if item.name == obj:
+          player.drop_item(item)
+          # current_room.add_item(item.name)
         else:
           continue
 
@@ -107,4 +129,5 @@ while True:
     else:
       print("\nCannot head west. Try another direction.\n")
   else:
-    print("\nInvalid command. Use 'n', 'e', 's', and 'w' to move, or press 'q' to quit.\n")
+    # print("\nInvalid command. Use 'n', 'e', 's', and 'w' to move, or press 'q' to quit.\n")
+    pass
